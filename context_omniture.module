@@ -1,6 +1,9 @@
 <?php
 
 
+/**
+ * Implements hook_context_plugins().
+ */
 function context_omniture_context_plugins() {
   $plugins = array();
   $plugins['context_omniture_reaction'] = array(
@@ -14,6 +17,9 @@ function context_omniture_context_plugins() {
   return $plugins;
 }
 
+/**
+ * Implements hook_context_registry().
+ */
 function context_omniture_context_registry() {
   $reg = array(
     'reactions' => array(
@@ -26,9 +32,15 @@ function context_omniture_context_registry() {
   return $reg;
 }
 
-function context_omniture_page_alter($page) {
+/**
+ * Implements hook_omniture_variables().
+ */
+function context_omniture_omniture_variables() {
+
+  //get variables from context 
   if ($plugin = context_get_plugin('reaction', 'context_omniture_reaction')) {
-    $plugin->execute($vars);
+    $variables = $plugin->execute($vars);
+    dpm($variables);
+    return array("variables" => $variables);
   } 
-  
 }
