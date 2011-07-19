@@ -1,0 +1,3 @@
+name = Omniture Context Intergation
+core = 7.x
+file[] = plugins/context_omniture_reaction.inc

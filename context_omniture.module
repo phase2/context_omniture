@@ -1,0 +1,34 @@
+<?php
+
+
+function context_omniture_context_plugins() {
+  $plugins = array();
+  $plugins['context_omniture_reaction'] = array(
+    'handler' => array(
+      'path' => drupal_get_path('module', 'context_omniture') .'/plugins',
+      'file' => 'context_omniture_reaction.inc',
+      'class' => 'context_omniture_reaction',
+      'parent' => 'context_reaction',
+    ),
+  );
+  return $plugins;
+}
+
+function context_omniture_context_registry() {
+  $reg = array(
+    'reactions' => array(
+      'context_omniture_reaction' => array(
+        'title' => t('Omniture'),
+        'plugin' => 'context_omniture_reaction',
+      ),
+    ),
+  );
+  return $reg;
+}
+
+function context_omniture_page_alter($page) {
+  if ($plugin = context_get_plugin('reaction', 'context_omniture_reaction')) {
+    $plugin->execute($vars);
+  } 
+  
+}
